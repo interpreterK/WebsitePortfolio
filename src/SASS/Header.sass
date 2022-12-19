@@ -1,0 +1,46 @@
+$Montserrat: ('Montserrat', sans-serif)
+$Ubuntu: ('Ubuntu', sans-serif)
+$Hover-Color: #3b89ff
+
+$Top-Spacing: 80px
+
+h1, li
+    color: white
+    text-shadow: white 1px 0 10px
+    transition: text-shadow .3s
+
+.Top-Bar
+    display: flex
+    justify-content: space-between
+    align-items: center
+    height: 8vh
+    width: 100%
+    background-color: rgba(20,20,20,.5)
+    backdrop-filter: blur(30px)
+.Top-Bar h1
+    font-family: $Ubuntu
+    font-weight: bold
+    letter-spacing: 1px
+    transition: color .3s
+    transform: translateX($Top-Spacing)
+.Top-Bar h1:hover
+    color: $Hover-Color
+    text-shadow: none
+    transition: color .3, text-shadow .3s
+.Top-Bar li
+    font-family: $Montserrat
+    font-size: 18px
+    color: white
+    transition: color .3s, font-size .3s
+
+.Nav-Links
+    list-style: none
+    padding: 0 $Top-Spacing
+.Nav-Links li
+    display: inline-block
+    padding: 0 20px
+.Nav-Links li:hover
+    color: $Hover-Color
+    font-size: 20px
+    text-shadow: none
+    transition: color .3s, font-size .3s, text-shadow .3s
