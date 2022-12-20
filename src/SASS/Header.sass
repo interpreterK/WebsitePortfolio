@@ -2,7 +2,8 @@ $Montserrat: ('Montserrat', sans-serif)
 $Ubuntu: ('Ubuntu', sans-serif)
 $Hover-Color: #3b89ff
 
-$Top-Spacing: 130px
+$Top-Spacing: 100px
+$Nav-Spacing: 25px
 
 h1, li
     color: white
@@ -17,28 +18,28 @@ h1, li
     width: 100%
     background-color: rgba(20,20,20,.5)
     backdrop-filter: blur(30px)
-.Top-Bar h1
-    font-family: $Ubuntu
-    font-weight: bold
-    letter-spacing: 1px
-    transition: color .3s
-    transform: translateX($Top-Spacing)
+    h1
+        font-family: $Ubuntu
+        font-weight: bold
+        letter-spacing: 1px
+        transition: color .3s
+        transform: translateX($Top-Spacing)
+    li
+        font-family: $Ubuntu
+        font-size: 20px
+        color: white
+        transition: color .3s, font-size .3s
 .Top-Bar h1:hover
     color: $Hover-Color
     text-shadow: none
     transition: color .3, text-shadow .3s
-.Top-Bar li
-    font-family: $Ubuntu
-    font-size: 20px
-    color: white
-    transition: color .3s, font-size .3s
 
 .Nav-Links
     list-style: none
     padding: 0 $Top-Spacing
-.Nav-Links li
-    display: inline-block
-    padding: 0 20px
+    li
+        display: inline-block
+        padding: 0 $Nav-Spacing
 .Nav-Links li:hover
     color: $Hover-Color
     font-size: 22px
