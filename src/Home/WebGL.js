@@ -7,7 +7,7 @@
 // Import ThreeJS
 import * as THREE from 'three'
 
-const {sin, cos, random} = Math
+const {sin, cos, floor, random} = Math
 const Objects1 = []
 const Objects2 = []
 let tick = 0
@@ -23,6 +23,10 @@ const Scene = new THREE.Scene()
 Camera.position.z = 1
 
 // Functions
+function RandomInt(x) {
+    return floor(random()*x)
+}
+
 const Instance = {
     Box: Box_Instance,
 }
@@ -38,16 +42,20 @@ function Box_Instance(BoxGeometry) {
         Mesh: Mesh
     }
 }
+
+function Vector3(x,y,z) {
+	return new THREE.Vector3(x,y,z)
+}
 // - End Functions -
 
 for (let i = 0; i < 10; i++) {
-	Objects1[i] = Instance([.2,.2,.2])
+	Objects1[i] = Instance.Box([.2,.2,.2])
 	const Object = Objects1[i].Mesh
-	Object.rotation.set(random()*2,random()*2,random()*2)
+	
 	Scene.add(Object)
 }
 for (let i = 0; i < 20; i++) {
-	Objects2[i] = Instance([.1,.1,.1])
+	Objects2[i] = Instance.Box([.1,.1,.1])
 	Scene.add(Objects2[i].Mesh)
 }
 
@@ -58,6 +66,7 @@ Renderer.setAnimationLoop((deltaTime) => {
 		item.Mesh.rotation.y = sin(deltaTime/1500)
 		item.Mesh.rotation.z = cos(deltaTime/4000)
 		item.Mesh.position.x = (sin(tick/350)-(index/2))+2
+		item.Mesh.position.z = (cos(tick/350)-(index/2))+2
 	})
 	Objects2.forEach((item, index) => {
 		item.Mesh.rotation.x = -cos(deltaTime/1200)

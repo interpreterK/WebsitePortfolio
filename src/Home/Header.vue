@@ -24,5 +24,5 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-    @use "./SASS/Header.sass"
+    @use "../SASS/Header.sass"
 </style>
