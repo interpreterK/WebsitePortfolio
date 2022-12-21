@@ -5,10 +5,10 @@
 
 <script>
 import Header from './components/Header.vue'
-import NameCard from './components/NameCard.vue'
+import NameCard from './components/TopPage.vue'
 
 // ThreeJS for WebGL utilization on the home screen
-require('./components/WebGL')
+require('./components/Space_WebGL')
 
 export default {
     name: 'App',

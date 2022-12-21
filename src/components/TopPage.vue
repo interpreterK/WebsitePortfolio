@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class='WebGL_Renderer'>
 		
 	</div>
 </template>
