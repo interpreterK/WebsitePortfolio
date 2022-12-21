@@ -4,11 +4,11 @@
 </template>
 
 <script>
-import Header from './Header.vue'
-import NameCard from './NameCard.vue'
+import Header from './components/Header.vue'
+import NameCard from './components/NameCard.vue'
 
 // ThreeJS for WebGL utilization on the home screen
-require('./WebGL')
+require('./components/WebGL')
 
 export default {
     name: 'App',
@@ -20,5 +20,5 @@ export default {
 </script>
 
 <style lang="sass">
-    @use "../SASS/App.sass"
+    @use "./SASS/App.sass"
 </style>
