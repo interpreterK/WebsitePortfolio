@@ -9,21 +9,28 @@ import * as THREE from 'three'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 
 function ThreeJS_Graphics() {
-    const {PI:pi, cos, sin, random} = Math
+    const {PI:pi, cos, sin, random, floor} = Math
     
+    const WebGL_Div = document.getElementById('WebGL_Renderer')
+    const w = WebGL_Div.offsetWidth
+    const h = WebGL_Div.offsetHeight
+
     // Start WebGL renderer
     const Renderer = new THREE.WebGLRenderer({antialias: true})
-    Renderer.setSize(window.innerWidth, window.innerHeight)
+    Renderer.setPixelRatio(window.devicePixelRatio)
+    Renderer.setSize(w, h)
     document.body.appendChild(Renderer.domElement)
 
     // ThreeJS camera
-    const Camera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, 0.1, 1000)
+    const Camera = new THREE.PerspectiveCamera(70, w/h, 0.1, 1000)
     const Scene = new THREE.Scene()
 
     // Setup the Scene Camera
     const Orbit = new OrbitControls(Camera, Renderer.domElement)
-    Camera.position.z = 1500
-    Orbit.update()
+    Orbit.enabled = false
+    Orbit.enablePan = false
+    Orbit.maxZoom = 10
+    Camera.position.z = 2000
 
     // Functions
     function _3D_Sphere(SphereGeometry, Material_Color, Emissive) {
@@ -74,9 +81,29 @@ function ThreeJS_Graphics() {
     function RandArbitrary(min, max) {
         return random()*(max-min)+min;
     }
-    
+
     function lerp(start, end, t) {
         return start*(1-t)+end*t
+    }
+    
+    function Intro() {
+        function easeOutQuad(x) {
+            return 1-(1-x)*(1-x)
+        }
+        const Intervals = []
+
+        for (let i = 0; i <= 100; i++) {
+            Intervals[Intervals.length] = setInterval(function() {
+                Camera.position.z = lerp(Camera.position.z, 100, easeOutQuad(i/2000))
+
+                if (floor(Camera.position.z) <= 100) {
+                    Intervals.forEach((_, index) => {
+                        clearInterval(Intervals[index])
+                    })
+                    Orbit.enabled = true
+                }
+            }, 20*i)
+        }
     }
     // - End Functions -
 
@@ -117,14 +144,6 @@ function ThreeJS_Graphics() {
 
         Renderer.render(Scene, Camera)
     })
-
-    function Intro() {
-        for (let i = 0; i < 100; i++) {
-            setTimeout(function() {
-                Camera.position.z = lerp(Camera.position.z,100,i/1000)
-            }, 20*i)
-        }
-    }
 
     window.addEventListener('resize', () => {
         Camera.aspect = window.innerWidth/window.innerHeight

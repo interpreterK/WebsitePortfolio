@@ -1,7 +1,8 @@
 <template>
-    <div class='WebGL_Renderer'>
-		
-	</div>
+    <div id='WebGL_Renderer'></div>
+    <div class="Element">
+        
+    </div>
 </template>
 
 <script>
@@ -12,5 +13,5 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
+    @use "../SASS/TopPage"
 </style>
