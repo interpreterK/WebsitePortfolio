@@ -8,9 +8,29 @@
 import * as THREE from 'three'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 
+const {PI:pi, cos, sin, random, floor} = Math
+
+function RandArbitrary(min, max) {
+    return random()*(max-min)+min
+}
+
+function lerp(start, end, t) {
+    return start*(1-t)+end*t
+}
+
+function Show_TopPage() {
+    // Show the top page at a certain period of time for the intro
+    const TopPage = document.getElementById('CenterElement')
+    setTimeout(() => {
+        for (let i = 0; i <= 100; i++) {
+            setTimeout(() => {
+                TopPage.style.filter = `opacity(${i}%)`
+            }, i*2)
+        }
+    }, 2000);
+}
+
 function ThreeJS_Graphics() {
-    const {PI:pi, cos, sin, random, floor} = Math
-    
     const WebGL_Div = document.getElementById('WebGL_Renderer')
     const w = WebGL_Div.offsetWidth
     const h = WebGL_Div.offsetHeight
@@ -26,10 +46,11 @@ function ThreeJS_Graphics() {
     const Scene = new THREE.Scene()
 
     // Setup the Scene Camera
-    const Orbit = new OrbitControls(Camera, Renderer.domElement)
-    Orbit.enabled = false
-    Orbit.enablePan = false
-    Orbit.maxZoom = 10
+    const Orbit       = new OrbitControls(Camera, Renderer.domElement)
+    Orbit.enabled     = false
+    Orbit.enablePan   = false
+    Orbit.enableZoom  = false
+    Orbit.maxZoom     = 10
     Camera.position.z = 2000
 
     // Functions
@@ -78,14 +99,6 @@ function ThreeJS_Graphics() {
         }
     }
 
-    function RandArbitrary(min, max) {
-        return random()*(max-min)+min;
-    }
-
-    function lerp(start, end, t) {
-        return start*(1-t)+end*t
-    }
-    
     function Intro() {
         function easeOutQuad(x) {
             return 1-(1-x)*(1-x)
@@ -93,7 +106,7 @@ function ThreeJS_Graphics() {
         const Intervals = []
 
         for (let i = 0; i <= 100; i++) {
-            Intervals[Intervals.length] = setInterval(function() {
+            Intervals[Intervals.length] = setInterval(() => {
                 Camera.position.z = lerp(Camera.position.z, 100, easeOutQuad(i/2000))
 
                 if (floor(Camera.position.z) <= 100) {
@@ -104,6 +117,7 @@ function ThreeJS_Graphics() {
                 }
             }, 20*i)
         }
+        Show_TopPage()
     }
     // - End Functions -
 

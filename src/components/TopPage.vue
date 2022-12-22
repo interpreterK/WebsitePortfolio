@@ -1,7 +1,11 @@
 <template>
-    <div id='WebGL_Renderer'></div>
-    <div class="Element">
-        
+    <div id="WebGL_Renderer">
+        <div id="CenterElement">
+            <div class="Window-Title">
+                <button id="CloseButton">X</button>
+                <h1>Title</h1>
+            </div>
+        </div>
     </div>
 </template>
 
