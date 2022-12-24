@@ -17,7 +17,7 @@ const {
     //min,
     //max
 } = Math
-const Stars = []
+//const Stars = []
 
 function RandArbitrary(min, max) {
     return random()*(max-min)+min
@@ -43,6 +43,7 @@ function color_lerp(rgb_start, rgb_end, t) {
     }
 }
 */
+/*
 async function flash_colorlerp(object) {
     for (let i = 0; i <= 100; i++) {
         await setTimeout(() => {
@@ -52,7 +53,7 @@ async function flash_colorlerp(object) {
             
         }, 2000);
     }
-}
+}*/
 function Show_TopPage() {
     // Show the top page at a certain period of time for the intro
     const TopPage = document.getElementById('CenterElement')
