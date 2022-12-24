@@ -7,8 +7,6 @@ $Nav-Spacing: 25px
 
 h1, li
     color: white
-    text-shadow: white 1px 0 10px
-    transition: text-shadow .3s
 
 .Top-Bar
     display: flex
@@ -16,8 +14,10 @@ h1, li
     align-items: center
     height: 8vh
     width: 100%
-    background-color: rgba(30,30,30,.5)
-    backdrop-filter: blur(100px)
+    background-color: rgba(10,10,10,.5)
+    backdrop-filter: blur(10px)
+    border-bottom: 1px solid rgb(50,50,50)
+    position: absolute
     h1
         font-family: $Ubuntu
         font-weight: bold
@@ -32,8 +32,6 @@ h1, li
         transition: color .3s, font-size .3s
 .Top-Bar h1:hover
     color: $Hover-Color
-    text-shadow: none
-    transition: color .3, text-shadow .3s
 
 .Nav-Links
     list-style: none
@@ -44,5 +42,3 @@ h1, li
 .Nav-Links li:hover
     color: $Hover-Color
     font-size: 22px
-    text-shadow: none
-    transition: color .3s, font-size .3s, text-shadow .3s

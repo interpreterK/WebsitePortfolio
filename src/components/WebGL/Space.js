@@ -8,16 +8,51 @@
 import * as THREE from 'three'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 
-const {PI:pi, cos, sin, random, floor} = Math
+const {
+    PI:pi,
+    cos,
+    sin,
+    random,
+    floor,
+    //min,
+    //max
+} = Math
+const Stars = []
 
 function RandArbitrary(min, max) {
     return random()*(max-min)+min
 }
-
 function lerp(start, end, t) {
     return start*(1-t)+end*t
 }
+/*
+function clamp(n1, n2, n3) {
+    return max(n1, min(n2, n3))
+}
+function color_lerp(rgb_start, rgb_end, t) {
+    // - Color Lerp -
+    // RED_1_Start    BLUE_1_Start    GREEN_1_Start
+    //     |±              |±               |±  ---- {0,lerp(...),255} ->{R:x_1,G:x_2,B:x_3}
+    // RED_1_End      BLUE_1_End      GREEN_1_End
+    const [R1,G1,B1] = [rgb_start[0], rgb_start[1], rgb_start[2]]
+    const [R2,G2,B2] = [rgb_end[0],   rgb_end[1],   rgb_end[2]]
+    return {
+        r: clamp(0,lerp(R1, R2, t),255),
+        g: clamp(0,lerp(G1, G2, t),255),
+        b: clamp(0,lerp(B1, B2, t),255)
+    }
+}
+*/
+async function flash_colorlerp(object) {
+    for (let i = 0; i <= 100; i++) {
+        await setTimeout(() => {
 
+        }, 2000)
+        await setTimeout(() => {
+            
+        }, 2000);
+    }
+}
 function Show_TopPage() {
     // Show the top page at a certain period of time for the intro
     const TopPage = document.getElementById('CenterElement')
