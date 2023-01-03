@@ -5,26 +5,14 @@
 // Import ThreeJS
 import * as THREE from 'three'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
+import * as cMath from './cMath.js'
 
-const {
-    PI:pi,
-    cos,
-    sin,
-    random,
-    floor,
-} = Math
+const {PI:pi,cos,sin,floor} = Math
 
-function RandArbitrary(min, max) {
-    return random()*(max-min)+min
-}
-function lerp(start, end, t) {
-    return start*(1-t)+end*t
-}
-
-function ThreeJS_Graphics() {
-    const TopWindow = document.getElementById("Top-Window")
+export function ThreeJS_Graphics() {
+    const TopWindow   = document.getElementById("Top-Window")
     const CloseWindow = document.getElementById("Close-Prompt")
-    const WebGL_Div = document.getElementById('WebGL_Renderer')
+    const WebGL_Div   = document.getElementById('WebGL_Renderer')
     const w = WebGL_Div.offsetWidth
     const h = WebGL_Div.offsetHeight
 
@@ -93,14 +81,11 @@ function ThreeJS_Graphics() {
     }
 
     function Intro() {
-        function easeOutQuad(x) {
-            return 1-(1-x)*(1-x)
-        }
         const Intervals = []
 
         for (let i = 0; i <= 100; i++) {
             Intervals[Intervals.length] = setInterval(() => {
-                Camera.position.z = lerp(Camera.position.z, 100, easeOutQuad(i/2000))
+                Camera.position.z = cMath.lerp(Camera.position.z, 100, cMath.easeOutQuad(i/2000))
 
                 if (floor(Camera.position.z) <= 100) {
                     Intervals.forEach((_, index) => {
@@ -124,17 +109,17 @@ function ThreeJS_Graphics() {
 
     // Stars
     for (let i = 0; i < 1000; i++) {
-        const Size = RandArbitrary(.1,2)
+        const Size = cMath.RandArbitrary(.1,2)
         const Star = _3D_Box([Size,Size,Size], 0xffffff).Mesh
         Star.position.set(
-            RandArbitrary(-1000,1000),
-            RandArbitrary(-1000,1000),
-            RandArbitrary(-1000,1000),
+            cMath.RandArbitrary(-1000,1000),
+            cMath.RandArbitrary(-1000,1000),
+            cMath.RandArbitrary(-1000,1000),
         )
         Star.rotation.set(
-            RandArbitrary(-360,360),
-            RandArbitrary(-360,360),
-            RandArbitrary(-360,360),
+            cMath.RandArbitrary(-360,360),
+            cMath.RandArbitrary(-360,360),
+            cMath.RandArbitrary(-360,360),
         )
     }
 
@@ -158,33 +143,13 @@ function ThreeJS_Graphics() {
         Renderer.setSize(window.innerWidth, window.innerHeight)
     }, false)
     
-    function FadeIn(Element) {
-        setTimeout(() => {
-            for (let i = 0; i <= 100; i++) {
-                setTimeout(() => {
-                    Element.style.filter = `opacity(${i}%)`
-                }, i*2)
-            }
-        }, 2000)
-    }
-    function FadeOut(Element) {
-        setTimeout(() => {
-            for (let i = 100; i >= 0; i--) {
-                setTimeout(() => {
-                    Element.style.filter = `opacity(${i}%)`
-                }, i*2)
-            }
-        }, 2000)
-    }
     function Show_TopPage() {
         // Show the top page at a certain period of time for the intro
-        FadeIn(TopWindow)
+        cMath.FadeIn(TopWindow)
     }
     function Hide_TopPage() {
-        FadeOut(TopWindow)
+        cMath.FadeOut(TopWindow)
     }
     CloseWindow.onclick = Hide_TopPage
     Intro()
 }
-
-window.onload = ThreeJS_Graphics
