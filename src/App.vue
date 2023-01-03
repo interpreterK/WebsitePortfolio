@@ -1,7 +1,9 @@
 <template>
+    <!--Vue Calls-->
     <TopBar/>
     <NameCard/>
-    <!--Vue Calls-->
+    <!---->
+
 </template>
 
 <script>
@@ -9,8 +11,8 @@ import TopBar from './components/Header.vue'
 import NameCard from './components/TopPage.vue'
 
 // ThreeJS Home Page (Space)
-import {ThreeJS_Graphics} from './components/WebGL/Space.js'
-window.onload = ThreeJS_Graphics
+import Render from './components/WebGL/Space.js'
+window.onload = Render
 
 export default {
     name: 'App',

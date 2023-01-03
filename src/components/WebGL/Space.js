@@ -9,7 +9,7 @@ import * as cMath from './cMath.js'
 
 const {PI:pi,cos,sin,floor} = Math
 
-export function ThreeJS_Graphics() {
+export default function Render() {
     const TopWindow   = document.getElementById("Top-Window")
     const CloseWindow = document.getElementById("Close-Prompt")
     const WebGL_Div   = document.getElementById('WebGL_Renderer')
