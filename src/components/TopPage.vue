@@ -7,11 +7,14 @@
             </div>
         </div>
     </div>
+    <div class="Middle">
+        
+    </div>
 </template>
 
 <script>
 export default {
-    name: 'NameCard'
+    name: 'TopPage'
     
 }
 </script>

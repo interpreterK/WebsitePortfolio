@@ -1,14 +1,16 @@
 <template>
-    <!--Vue Calls-->
+    <!--Vue Imports-->
     <TopBar/>
-    <NameCard/>
+    <TopPage/>
+    <MiddlePage/>
     <!---->
 
 </template>
 
 <script>
 import TopBar from './components/Header.vue'
-import NameCard from './components/TopPage.vue'
+import TopPage from './components/TopPage.vue'
+import MiddlePage from './components/MiddlePage.vue'
 
 // ThreeJS Home Page (Space)
 import Render from './components/WebGL/Space.js'
@@ -18,7 +20,8 @@ export default {
     name: 'App',
     components: {
         TopBar,
-        NameCard
+        TopPage,
+        MiddlePage
     }
 }
 </script>
