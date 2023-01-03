@@ -1,19 +1,17 @@
 <template>
-    <Header/>
+    <TopBar/>
     <NameCard/>
+    <!--Vue Calls-->
 </template>
 
 <script>
-import Header from './components/Header.vue'
+import TopBar from './components/Header.vue'
 import NameCard from './components/TopPage.vue'
-
-// ThreeJS for WebGL utilization on the home screen
-require('./components/WebGL/Space')
 
 export default {
     name: 'App',
     components: {
-        Header,
+        TopBar,
         NameCard
     }
 }

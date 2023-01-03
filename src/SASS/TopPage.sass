@@ -1,17 +1,49 @@
+$Ubuntu: ('Ubuntu', sans-serif)
+$Montserrat: ('Montserrat', sans-serif)
+$Hover-Color: #3b89ff
+
 #WebGL_Renderer
     height: 100vh
     width: 100vw
-    z-index: 1
+    // Currently new as of 12/2022
+    width: 100dvw
+    height: 100dvh
+    // ---
     pointer-events: none
     position: absolute
 
-.Element
-    width: 10vw
-    height: 10vh
+#Top-Window
     margin: auto
-#CenterElement
+    pointer-events: auto
+    border: 2px solid white
+    border-radius: 30px
+    height: 70%
+    width: 50%
+    backdrop-filter: blur(10px)
+    transform: translateY(25%)
+    filter: opacity(0%)
+
+.Top-Bar-Window
+    display: flex
+    flex-direction: row-reverse
+    height: 5%
+    width: 95%
     margin: auto
-    border: 2px solid green
-    height: 50%
-    transform: translateY(50%)
-    position: relative
+    transform: translateY(15%)
+    h1
+        font-family: $Ubuntu
+        color: white
+        align-self: center
+        margin: auto
+    button
+        font-family: $Montserrat
+        font-size: 30px
+        color: white
+        align-self: center
+        background-color: transparent
+        border: 0
+        cursor: pointer
+        transition: color .3s
+    button:hover
+        color: $Hover-Color
+        transition: color .3s

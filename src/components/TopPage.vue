@@ -1,9 +1,9 @@
 <template>
     <div id="WebGL_Renderer">
-        <div id="CenterElement">
-            <div class="Window-Title">
-                <button id="CloseButton">X</button>
-                <h1>Title</h1>
+        <div id="Top-Window">
+            <div class="Top-Bar-Window">
+                <button id="Close-Prompt">X</button>
+                <h1>Hello!</h1>
             </div>
         </div>
     </div>
