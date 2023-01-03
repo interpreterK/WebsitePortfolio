@@ -2,10 +2,10 @@
 	@Author: interpreterK (https://github.com/interpreterK)
 */
 
-// Import ThreeJS
 import * as THREE from 'three'
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import * as cMath from './cMath.js'
+import * as Objects from './Objects.js'
 
 const {PI:pi,cos,sin,floor} = Math
 
@@ -13,6 +13,7 @@ export default function Render() {
     const TopWindow   = document.getElementById("Top-Window")
     const CloseWindow = document.getElementById("Close-Prompt")
     const WebGL_Div   = document.getElementById('WebGL_Renderer')
+
     const w = WebGL_Div.offsetWidth
     const h = WebGL_Div.offsetHeight
 
@@ -34,52 +35,6 @@ export default function Render() {
     Orbit.maxZoom     = 10
     Camera.position.z = 2000
 
-    // Functions
-    function _3D_Sphere(SphereGeometry, Material_Color, Emissive) {
-        const Geometry = new THREE.SphereGeometry(...SphereGeometry)
-
-        let Material
-        if (Material_Color != undefined || Emissive != undefined) {
-            Material = new THREE.MeshStandardMaterial({
-                color: Material_Color === undefined ? 0xff0000 : Material_Color,
-                emissive: Emissive === undefined ? 0x404040 : Emissive
-            })
-        } else {
-            Material = new THREE.MeshNormalMaterial()
-        }
-
-        const Mesh = new THREE.Mesh(Geometry, Material)
-        Scene.add(Mesh)
-
-        return {
-            Geometry: Geometry,
-            Material: Material,
-            Mesh: Mesh
-        }
-    }
-
-    function _3D_Box(BoxGeometry, Material_Color) {
-        const Geometry = new THREE.BoxGeometry(...BoxGeometry)
-        
-        let Material
-        if (Material_Color != undefined) {
-            Material = new THREE.MeshBasicMaterial({
-                color: Material_Color === undefined ? 0xff0000 : Material_Color
-            })
-        } else {
-            Material = new THREE.MeshNormalMaterial()
-        }
-
-        const Mesh = new THREE.Mesh(Geometry, Material)
-        Scene.add(Mesh)
-
-        return {
-            Geometry: Geometry,
-            Material: Material,
-            Mesh: Mesh
-        }
-    }
-
     function Intro() {
         const Intervals = []
 
@@ -100,17 +55,17 @@ export default function Render() {
     // - End Functions -
 
     // The main big planet
-    _3D_Sphere([15*2, 32*2, 16*2])
+    Objects._3D_Sphere(Scene, [15*2, 32*2, 16*2])
 
-    const Moon = _3D_Sphere([15/2, 32, 16])
-    const Moon2 = _3D_Sphere([15/5, 32, 16])
+    const Moon = Objects._3D_Sphere(Scene, [15/2, 32, 16])
+    const Moon2 = Objects._3D_Sphere(Scene, [15/5, 32, 16])
     const Moon_Object = Moon.Mesh
     const Moon2_Object = Moon2.Mesh
 
     // Stars
     for (let i = 0; i < 1000; i++) {
         const Size = cMath.RandArbitrary(.1,2)
-        const Star = _3D_Box([Size,Size,Size], 0xffffff).Mesh
+        const Star = Objects._3D_Box(Scene, [Size,Size,Size], 0xffffff).Mesh
         Star.position.set(
             cMath.RandArbitrary(-1000,1000),
             cMath.RandArbitrary(-1000,1000),
