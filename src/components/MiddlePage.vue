@@ -1,5 +1,7 @@
 <template>
-	
+	<div class="Middle">
+		
+	</div>
 </template>
 
 <script>

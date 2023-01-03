@@ -7,9 +7,6 @@
             </div>
         </div>
     </div>
-    <div class="Middle">
-        
-    </div>
 </template>
 
 <script>
