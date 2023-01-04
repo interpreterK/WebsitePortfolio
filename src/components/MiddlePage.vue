@@ -1,13 +1,14 @@
 <template>
-	<div class="Middle">
-		
-	</div>
+    <div class="MiddlePage">
+        
+    </div>
 </template>
 
 <script>
-	
+
 export default {
-	name: "MiddlePage"
+	name: 'MiddlePage',
+
 }
 </script>
 

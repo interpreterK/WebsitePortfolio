@@ -11,8 +11,10 @@
 
 <script>
 export default {
-    name: 'TopPage'
-    
+    name: 'TopPage',
+    components: {
+        
+    }
 }
 </script>
 

@@ -1,9 +1,7 @@
 <template>
-    <!--Vue Imports-->
     <TopBar/>
     <TopPage/>
     <MiddlePage/>
-    <!---->
     
 </template>
 

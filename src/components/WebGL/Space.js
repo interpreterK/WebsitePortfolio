@@ -21,7 +21,8 @@ export default function Render() {
     const Renderer = new THREE.WebGLRenderer({antialias: true})
     Renderer.setPixelRatio(window.devicePixelRatio)
     Renderer.setSize(w, h)
-    document.body.appendChild(Renderer.domElement)
+    document.body.appendChild(WebGL_Div)
+    WebGL_Div.appendChild(Renderer.domElement)
 
     // ThreeJS camera
     const Camera = new THREE.PerspectiveCamera(70, w/h, 0.1, 1000)
@@ -66,6 +67,8 @@ export default function Render() {
     for (let i = 0; i < 1000; i++) {
         const Size = cMath.RandArbitrary(.1,2)
         const Star = Objects._3D_Box(Scene, [Size,Size,Size], 0xffffff).Mesh
+        // Randomly set a position and rotation
+        // Space atmosphere
         Star.position.set(
             cMath.RandArbitrary(-1000,1000),
             cMath.RandArbitrary(-1000,1000),
