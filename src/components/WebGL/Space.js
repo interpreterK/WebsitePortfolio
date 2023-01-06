@@ -2,58 +2,40 @@
 	@Author: interpreterK (https://github.com/interpreterK)
 */
 
-import * as THREE from 'three'
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls'
 import * as cMath from './cMath.js'
 import * as Objects from './Objects.js'
+import WebGL_Scene from './WebGL_Scene.js'
 
 const {PI:pi,cos,sin,floor} = Math
+
+function Intro(Camera, Orbit, FadeWindow) {
+    const Intervals = []
+
+    for (let i = 0; i <= 100; i++) {
+        Intervals[Intervals.length] = setInterval(() => {
+            Camera.position.z = cMath.lerp(Camera.position.z, 100, cMath.easeOutQuad(i/2000))
+
+            if (floor(Camera.position.z) <= 100) {
+                Intervals.forEach((_, index) => {
+                    clearInterval(Intervals[index])
+                })
+                Orbit.enabled = true
+            }
+        }, 20*i)
+    }
+    cMath.FadeIn(FadeWindow)
+}
 
 export default function Render() {
     const TopWindow   = document.getElementById("Top-Window")
     const CloseWindow = document.getElementById("Close-Prompt")
     const WebGL_Div   = document.getElementById('WebGL_Renderer')
 
-    const w = WebGL_Div.offsetWidth
-    const h = WebGL_Div.offsetHeight
-
-    // Start WebGL renderer
-    const Renderer = new THREE.WebGLRenderer({antialias: true})
-    Renderer.setPixelRatio(window.devicePixelRatio)
-    Renderer.setSize(w, h)
-    document.body.appendChild(WebGL_Div)
-    WebGL_Div.appendChild(Renderer.domElement)
-
-    // ThreeJS camera
-    const Camera = new THREE.PerspectiveCamera(70, w/h, 0.1, 1000)
-    const Scene = new THREE.Scene()
-
-    // Setup the Scene Camera
-    const Orbit       = new OrbitControls(Camera, Renderer.domElement)
-    Orbit.enabled     = false
-    Orbit.enablePan   = false
-    Orbit.enableZoom  = false
-    Orbit.maxZoom     = 10
-    Camera.position.z = 2000
-
-    function Intro() {
-        const Intervals = []
-
-        for (let i = 0; i <= 100; i++) {
-            Intervals[Intervals.length] = setInterval(() => {
-                Camera.position.z = cMath.lerp(Camera.position.z, 100, cMath.easeOutQuad(i/2000))
-
-                if (floor(Camera.position.z) <= 100) {
-                    Intervals.forEach((_, index) => {
-                        clearInterval(Intervals[index])
-                    })
-                    Orbit.enabled = true
-                }
-            }, 20*i)
-        }
-        Show_TopPage()
-    }
-    // - End Functions -
+    const WebGL    = WebGL_Scene(WebGL_Div)
+    const Renderer = WebGL.Renderer
+    const Camera   = WebGL.Camera
+    const Orbit    = WebGL.Orbit
+    const Scene    = WebGL.Scene
 
     // The main big planet
     Objects._3D_Sphere(Scene, [15*2, 32*2, 16*2])
@@ -95,19 +77,14 @@ export default function Render() {
         Renderer.render(Scene, Camera)
     })
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
         Camera.aspect = window.innerWidth/window.innerHeight
         Camera.updateProjectionMatrix()
         Renderer.setSize(window.innerWidth, window.innerHeight)
     }, false)
     
-    function Show_TopPage() {
-        // Show the top page at a certain period of time for the intro
-        cMath.FadeIn(TopWindow)
-    }
-    function Hide_TopPage() {
+    CloseWindow.onclick = function() {
         cMath.FadeOut(TopWindow)
     }
-    CloseWindow.onclick = Hide_TopPage
-    Intro()
+    Intro(Camera, Orbit, TopWindow)
 }

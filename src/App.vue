@@ -1,14 +1,20 @@
 <template>
     <TopBar/>
-    <TopPage/>
-    <MiddlePage/>
-    
+    <div id="WebGL_Renderer">
+        <div id="Top-Window">
+            <div class="Top-Bar-Window">
+                <button id="Close-Prompt">X</button>
+                <h1>Hello!</h1>
+            </div>
+        </div>
+    </div>
+    <div class="MiddlePage">
+        
+    </div>
 </template>
 
 <script>
 import TopBar from './components/Header.vue'
-import TopPage from './components/TopPage.vue'
-import MiddlePage from './components/MiddlePage.vue'
 
 // ThreeJS Home Page (Space)
 import Render from './components/WebGL/Space.js'
@@ -18,8 +24,6 @@ export default {
     name: 'App',
     components: {
         TopBar,
-        TopPage,
-        MiddlePage
     }
 }
 </script>
