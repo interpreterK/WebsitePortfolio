@@ -1,29 +1,24 @@
 <template>
     <TopBar/>
-    <div id="WebGL_Renderer">
-        <div id="Top-Window">
-            <div class="Top-Bar-Window">
-                <button id="Close-Prompt">X</button>
-                <h1>Hello!</h1>
-            </div>
-        </div>
-    </div>
-    <div class="MiddlePage">
-        
-    </div>
+    <SpaceGL/>
+    <MiddleGL/>
 </template>
 
-<script>
+<script> 
 import TopBar from './components/Header.vue'
+import SpaceGL from './components/SpaceGL.vue'
+import MiddleGL from './components/MiddleGL.vue'
 
 // ThreeJS Home Page (Space)
-import Render from './components/WebGL/Space.js'
+import Render from './components/WebGL/Scenes/Space.js'
 window.onload = Render
 
 export default {
     name: 'App',
     components: {
         TopBar,
+        SpaceGL,
+        MiddleGL
     }
 }
 </script>

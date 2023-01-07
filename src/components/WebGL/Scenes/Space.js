@@ -2,13 +2,14 @@
 	@Author: interpreterK (https://github.com/interpreterK)
 */
 
-import * as cMath from './cMath.js'
-import * as Objects from './Objects.js'
-import WebGL_Scene from './WebGL_Scene.js'
+import * as cMath from '../cMath.js'
+import * as Objects from '../Objects.js'
+import WebGL_Scene from '../WebGL_Scene.js'
 
 const {PI:pi,cos,sin,floor} = Math
 
 function Intro(Camera, Orbit, FadeWindow) {
+    const CloseWindow = document.getElementById("Close-Prompt")
     const Intervals = []
 
     for (let i = 0; i <= 100; i++) {
@@ -24,11 +25,13 @@ function Intro(Camera, Orbit, FadeWindow) {
         }, 20*i)
     }
     cMath.FadeIn(FadeWindow)
+    CloseWindow.onclick = function() {
+        cMath.FadeOut(FadeWindow)
+    }
 }
 
 export default function Render() {
     const TopWindow   = document.getElementById("Top-Window")
-    const CloseWindow = document.getElementById("Close-Prompt")
     const WebGL_Div   = document.getElementById('WebGL_Renderer')
 
     const WebGL    = WebGL_Scene(WebGL_Div)
@@ -82,9 +85,6 @@ export default function Render() {
         Camera.updateProjectionMatrix()
         Renderer.setSize(window.innerWidth, window.innerHeight)
     }, false)
-    
-    CloseWindow.onclick = function() {
-        cMath.FadeOut(TopWindow)
-    }
+
     Intro(Camera, Orbit, TopWindow)
 }

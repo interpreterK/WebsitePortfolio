@@ -30,6 +30,7 @@ export function FadeOut(Element) {
         for (let i = 100; i >= 0; i--) {
             setTimeout(() => {
                 Element.style.filter = `opacity(${i}%)`
+                console.log(i)
             }, i*2)
         }
     }, 2000)
