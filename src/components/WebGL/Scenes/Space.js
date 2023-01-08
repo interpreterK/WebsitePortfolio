@@ -31,8 +31,8 @@ function Intro(Camera, Orbit, FadeWindow) {
 }
 
 export default function Render() {
-    const TopWindow   = document.getElementById("Top-Window")
-    const WebGL_Div   = document.getElementById('WebGL_Renderer')
+    const TopWindow = document.getElementById("Top-Window")
+    const WebGL_Div = document.getElementById('WebGL_Renderer')
 
     const WebGL    = WebGL_Scene(WebGL_Div)
     const Renderer = WebGL.Renderer
