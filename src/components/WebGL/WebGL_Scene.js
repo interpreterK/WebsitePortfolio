@@ -26,7 +26,10 @@ export default function WebGL_New(RENDER_DIV, RENDER_OPTIONS, CAMERA_OPTIONS) {
 	CAMERA_OPTIONS.ASPECT = CAMERA_OPTIONS.ASPECT ? CAMERA_OPTIONS.ASPECT : W/H
 
 	// Start WebGL
-	const Renderer = new THREE.WebGLRenderer({antialias: true})
+	const Renderer = new THREE.WebGLRenderer({
+		antialias: true,
+		alpha: true
+	})
 	Renderer.setPixelRatio(window.devicePixelRatio)
 	Renderer.setSize(W, H)
 	RENDER_DIV.appendChild(Renderer.domElement)
