@@ -24,7 +24,7 @@ function Intro(Camera, Orbit, FadeWindow) {
             }
         }, 20*i)
     }
-    cMath.FadeIn(FadeWindow)
+    //cMath.FadeIn(FadeWindow)
     CloseWindow.onclick = function() {
         cMath.FadeOut(FadeWindow)
     }
@@ -48,34 +48,46 @@ export default function Render() {
     const Moon_Object = Moon.Mesh
     const Moon2_Object = Moon2.Mesh
 
-    // Stars
+    // Stars and Particles
+    const Particles = []
+    
     for (let i = 0; i < 1000; i++) {
         const Size = cMath.RandArbitrary(.1,2)
         const Star = Objects._3D_Box(Scene, [Size,Size,Size], 0xffffff).Mesh
         // Randomly set a position and rotation
         // Space atmosphere
-        Star.position.set(
-            cMath.RandArbitrary(-1000,1000),
-            cMath.RandArbitrary(-1000,1000),
-            cMath.RandArbitrary(-1000,1000),
-        )
-        Star.rotation.set(
-            cMath.RandArbitrary(-360,360),
-            cMath.RandArbitrary(-360,360),
-            cMath.RandArbitrary(-360,360),
-        )
+        Star.position.x=cMath.RandArbitrary(-1000,1000)
+        Star.position.y=cMath.RandArbitrary(-1000,1000)
+        Star.position.z=cMath.RandArbitrary(-1000,1000)
+        Star.rotation.x=cMath.RandArbitrary(-360,360)
+        Star.rotation.y=cMath.RandArbitrary(-360,360)
+        Star.rotation.z=cMath.RandArbitrary(-360,360)
+    }
+    for (let i = 0; i < 1000; i++) {
+        const Particle = Objects._3D_Sphere(Scene, [.2,.2,.2]).Mesh
+        Particle.position.x=cMath.RandArbitrary(-50,50)
+        Particle.position.z=cMath.RandArbitrary(-50,50)
+        Particles[Particles.length] = {
+            Object: Particle,
+            Origin: Particle.position
+        }
     }
 
     Renderer.setAnimationLoop((deltaTime) => {
         const Angle1 = (deltaTime/(1e4*2)*pi)%(2*pi)
         const Angle2 = (deltaTime/4000*pi)%(2*pi)
-
         Moon_Object.position.x=sin(Angle1)*40
         Moon_Object.position.y=sin(Angle1)*35
         Moon_Object.position.z=cos(Angle1)*40
         Moon2_Object.position.x=Moon_Object.position.x+sin(Angle2)*10
         Moon2_Object.position.y=Moon_Object.position.y-sin(Angle2)*8
         Moon2_Object.position.z=Moon_Object.position.z+cos(Angle2)*10
+
+        // Particles.forEach((_, index) => {
+        //     const Particle = Particles[index]
+        //     Particle.Object.position.x=sin(Angle1)*40
+        //     Particle.Object.position.y=cos(Angle2)*8
+        // })
 
         Renderer.render(Scene, Camera)
     })
