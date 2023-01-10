@@ -63,10 +63,8 @@ export default function Render() {
         Star.rotation.y=cMath.RandArbitrary(-360,360)
         Star.rotation.z=cMath.RandArbitrary(-360,360)
     }
-    for (let i = 0; i < 1000; i++) {
-        const Particle = Objects._3D_Sphere(Scene, [.2,.2,.2]).Mesh
-        Particle.position.x=cMath.RandArbitrary(-50,50)
-        Particle.position.z=cMath.RandArbitrary(-50,50)
+    for (let i = 0; i < 300; i++) {
+        const Particle = Objects._3D_Sphere(Scene, [15/50, 32, 16]).Mesh
         Particles[Particles.length] = {
             Object: Particle,
             Origin: Particle.position
@@ -83,11 +81,20 @@ export default function Render() {
         Moon2_Object.position.y=Moon_Object.position.y-sin(Angle2)*8
         Moon2_Object.position.z=Moon_Object.position.z+cos(Angle2)*10
 
-        // Particles.forEach((_, index) => {
-        //     const Particle = Particles[index]
-        //     Particle.Object.position.x=sin(Angle1)*40
-        //     Particle.Object.position.y=cos(Angle2)*8
-        // })
+        Particles.forEach((_, index) => {
+            const Particle = Particles[index]
+            // Particle.Object.position.y=Particle.Origin.y+cos(Angle1)/10
+            // Particle.Object.position.x=(Particle.Origin.x-(index/300))+sin(Angle1)/100
+            // Particle.Object.position.y=(Particle.Origin.y-(index/500))+sin(Angle2)/500
+            // Particle.Object.position.x=(Particle.Origin.x-(index/500))+sin(Angle1)/500
+            // Particle.Object.position.z=(Particle.Origin.z+(index/500))+cos(Angle1/(500/4))/500
+            // Particle.Object.position.x=(Particle.Origin.x-(index/500))+cos(Angle1/(500/4))/500
+            // Particle.Object.position.y=(Particle.Origin.y+(index/500))+cos(Angle1/(500/4))/500
+
+            Particle.Object.position.x=sin(Angle1)*10
+            Particle.Object.position.y=sin(Angle1+index)*50
+            Particle.Object.position.z=cos(Angle1+index)*50
+        })
 
         Renderer.render(Scene, Camera)
     })
