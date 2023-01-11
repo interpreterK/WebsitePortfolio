@@ -63,7 +63,7 @@ export default function Render() {
         Star.rotation.y=cMath.RandArbitrary(-360,360)
         Star.rotation.z=cMath.RandArbitrary(-360,360)
     }
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 500; i++) {
         const Particle = Objects._3D_Sphere(Scene, [15/50, 32, 16]).Mesh
         Particles[Particles.length] = {
             Object: Particle,
@@ -91,9 +91,10 @@ export default function Render() {
             // Particle.Object.position.x=(Particle.Origin.x-(index/500))+cos(Angle1/(500/4))/500
             // Particle.Object.position.y=(Particle.Origin.y+(index/500))+cos(Angle1/(500/4))/500
 
-            Particle.Object.position.x=sin(Angle1)*10
+            Particle.Object.position.x=sin(Angle1+index)*50
             Particle.Object.position.y=sin(Angle1+index)*50
-            Particle.Object.position.z=cos(Angle1+index)*50
+            Particle.Object.position.z=cos(Angle1+index)*60
+
         })
 
         Renderer.render(Scene, Camera)
