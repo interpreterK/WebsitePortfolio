@@ -10,7 +10,7 @@ import SpaceGL from './components/SpaceGL.vue'
 import MiddleGL from './components/MiddleGL.vue'
 
 // ThreeJS Home Page (Space)
-import Render from './components/WebGL/Scenes/Space.js'
+import Render from './components/JS/Scenes/Space.js'
 window.onload = Render
 
 export default {

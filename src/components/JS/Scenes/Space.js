@@ -40,11 +40,21 @@ export default function Render() {
     const Orbit    = WebGL.Orbit
     const Scene    = WebGL.Scene
 
-    // The main big planet
-    Objects._3D_Sphere(Scene, [15*2, 32*2, 16*2])
+    // Shaders
+    const Bloom = Instances.Bloom(Renderer, Scene, Camera, {
+        strength: 1,
+        radius: .5,
+    })
 
-    const Moon = Objects._3D_Sphere(Scene, [15/2, 32, 16])
-    const Moon2 = Objects._3D_Sphere(Scene, [15/5, 32, 16])
+    // The main big planet
+    Instances._3D_Sphere(Scene, [15*2, 32*2, 16*2])
+
+    // The sun
+    const Sun = Instances._3D_Sphere(Scene, [15*2, 32*2, 16*2], 0xffff00)
+    Sun.Mesh.position.set(500,300,-500)
+    
+    const Moon = Instances._3D_Sphere(Scene, [15/2, 32, 16])
+    const Moon2 = Instances._3D_Sphere(Scene, [15/5, 32, 16])
     const Moon_Object = Moon.Mesh
     const Moon2_Object = Moon2.Mesh
 
@@ -52,58 +62,53 @@ export default function Render() {
     const Particles = []
     
     for (let i = 0; i < 1000; i++) {
-        const Size = cMath.RandArbitrary(.1,2)
-        const Star = Objects._3D_Box(Scene, [Size,Size,Size], 0xffffff).Mesh
+        const Size = cMath.RandRange(.1,2)
+        const Star = Instances._3D_Box(Scene, [Size,Size,Size], 0xffffff).Mesh
         // Randomly set a position and rotation
         // Space atmosphere
-        Star.position.x=cMath.RandArbitrary(-1000,1000)
-        Star.position.y=cMath.RandArbitrary(-1000,1000)
-        Star.position.z=cMath.RandArbitrary(-1000,1000)
-        Star.rotation.x=cMath.RandArbitrary(-360,360)
-        Star.rotation.y=cMath.RandArbitrary(-360,360)
-        Star.rotation.z=cMath.RandArbitrary(-360,360)
+        Star.position.x=cMath.RandRange(-1000,1000)
+        Star.position.y=cMath.RandRange(-1000,1000)
+        Star.position.z=cMath.RandRange(-1000,1000)
+        Star.rotation.x=cMath.RandRange(-360,360)
+        Star.rotation.y=cMath.RandRange(-360,360)   
+        Star.rotation.z=cMath.RandRange(-360,360)
     }
+    
     for (let i = 0; i < 500; i++) {
-        const Particle = Objects._3D_Sphere(Scene, [15/50, 32, 16]).Mesh
+        const Particle = Instances._3D_Sphere(Scene, [15/50, 32, 16]).Mesh
         Particles[Particles.length] = {
             Object: Particle,
-            Origin: Particle.position
+            y_rand: Particle.position.y-cMath.RandRange(-10,0),
+            z_rand: Particle.position.z-cMath.RandRange(-20,0)
         }
     }
-
+    
     Renderer.setAnimationLoop((deltaTime) => {
         const Angle1 = (deltaTime/(1e4*2)*pi)%(2*pi)
         const Angle2 = (deltaTime/4000*pi)%(2*pi)
         Moon_Object.position.x=sin(Angle1)*40
         Moon_Object.position.y=sin(Angle1)*35
         Moon_Object.position.z=cos(Angle1)*40
-        Moon2_Object.position.x=Moon_Object.position.x+sin(Angle2)*10
-        Moon2_Object.position.y=Moon_Object.position.y-sin(Angle2)*8
-        Moon2_Object.position.z=Moon_Object.position.z+cos(Angle2)*10
+        Moon2_Object.position.x=Moon_Object.position.x+sin(Angle2)*15
+        Moon2_Object.position.y=Moon_Object.position.y-sin(Angle2)*10
+        Moon2_Object.position.z=Moon_Object.position.z+cos(Angle2)*15
 
         Particles.forEach((_, index) => {
             const Particle = Particles[index]
-            // Particle.Object.position.y=Particle.Origin.y+cos(Angle1)/10
-            // Particle.Object.position.x=(Particle.Origin.x-(index/300))+sin(Angle1)/100
-            // Particle.Object.position.y=(Particle.Origin.y-(index/500))+sin(Angle2)/500
-            // Particle.Object.position.x=(Particle.Origin.x-(index/500))+sin(Angle1)/500
-            // Particle.Object.position.z=(Particle.Origin.z+(index/500))+cos(Angle1/(500/4))/500
-            // Particle.Object.position.x=(Particle.Origin.x-(index/500))+cos(Angle1/(500/4))/500
-            // Particle.Object.position.y=(Particle.Origin.y+(index/500))+cos(Angle1/(500/4))/500
-
-            Particle.Object.position.x=sin(Angle1+index)*50
-            Particle.Object.position.y=sin(Angle1+index)*50
-            Particle.Object.position.z=cos(Angle1+index)*60
-
+            Particle.Object.position.x=sin(Angle1+index)*60
+            Particle.Object.position.y=Particle.y_rand+sin(Angle1+index)*50
+            Particle.Object.position.z=Particle.z_rand+cos(Angle1+index)*100
         })
 
         Renderer.render(Scene, Camera)
+        Bloom.Composer.render()
     })
 
     window.addEventListener("resize", () => {
         Camera.aspect = window.innerWidth/window.innerHeight
         Camera.updateProjectionMatrix()
         Renderer.setSize(window.innerWidth, window.innerHeight)
+        Bloom.Composer.setSize(window.innerWidth, window.innerHeight)
     }, false)
 
     Intro(Camera, Orbit, TopWindow)

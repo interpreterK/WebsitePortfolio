@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
 import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
+import * as fLibrary from './fLibrary.js'
 
 let BLOOM_Default = {
     threshold: 0,
@@ -15,8 +16,8 @@ export function _3D_Sphere(Scene, SphereGeometry, Material_Color, Emissive) {
     let Material
     if (Material_Color != undefined || Emissive != undefined) {
         Material = new THREE.MeshStandardMaterial({
-            color: Material_Color === undefined ? 0xff0000 : Material_Color,
-            emissive: Emissive === undefined ? 0xcccccc : Emissive
+            color:    fLibrary.s_Circuit(Material_Color, 0xff0000),
+            emissive: fLibrary.s_Circuit(Emissive, 0xcccccc)
         })
     } else {
         Material = new THREE.MeshNormalMaterial()
@@ -38,7 +39,7 @@ export function _3D_Box(Scene, BoxGeometry, Material_Color) {
     let Material
     if (Material_Color != undefined) {
         Material = new THREE.MeshBasicMaterial({
-            color: Material_Color === undefined ? 0xff0000 : Material_Color
+            color: fLibrary.s_Circuit(Material_Color, 0xff0000)
         })
     } else {
         Material = new THREE.MeshNormalMaterial()
@@ -54,7 +55,7 @@ export function _3D_Box(Scene, BoxGeometry, Material_Color) {
     }
 }
 
-export function Bloom(Renderer, Scene, Camera, Bloom_Properties) {
+export function Bloom(Renderer, Scene, Camera, BLOOM_Properties) {
     const Pass_Render = new RenderPass(Scene, Camera)
     const UnrealBloom = new UnrealBloomPass(
         new THREE.Vector2(window.innerWidth, window.innerHeight),
@@ -63,10 +64,10 @@ export function Bloom(Renderer, Scene, Camera, Bloom_Properties) {
         .85
     )
 
-    Bloom_Properties = Bloom_Properties === undefined ? BLOOM_Default : Bloom_Properties
-    UnrealBloom.threshold = Bloom_Properties.threshold === undefined ? BLOOM_Default.threshold : Bloom_Properties.threshold
-    UnrealBloom.strength  = Bloom_Properties.strength  === undefined ? BLOOM_Default.strength  : Bloom_Properties.strength
-    UnrealBloom.radius    = Bloom_Properties.radius    === undefined ? BLOOM_Default.radius    : Bloom_Properties.radius
+    BLOOM_Properties      = fLibrary.s_Circuit(BLOOM_Properties, BLOOM_Default)
+    UnrealBloom.threshold = fLibrary.s_Circuit(BLOOM_Properties.threshold, BLOOM_Default.threshold)
+    UnrealBloom.strength  = fLibrary.s_Circuit(BLOOM_Properties.strength, BLOOM_Default.strength)
+    UnrealBloom.radius    = fLibrary.s_Circuit(BLOOM_Properties.radius, BLOOM_Default.radius)
 
     const Composer = new EffectComposer(Renderer)
     Composer.setSize(window.innerWidth, window.innerHeight)

@@ -1,4 +1,4 @@
-export function RandArbitrary(min, max) {
+export function RandRange(min, max) {
     return Math.random()*(max-min)+min
 }
 
