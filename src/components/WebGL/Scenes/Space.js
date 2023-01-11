@@ -3,7 +3,7 @@
 */
 
 import * as cMath from '../cMath.js'
-import * as Objects from '../Objects.js'
+import * as Instances from '../Instances.js'
 import WebGL_Scene from '../WebGL_Scene.js'
 
 const {PI:pi,cos,sin,floor} = Math
