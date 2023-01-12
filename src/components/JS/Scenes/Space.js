@@ -2,6 +2,7 @@
 	@Author: interpreterK (https://github.com/interpreterK)
 */
 
+import * as THREE from 'three'
 import * as cMath from '../cMath.js'
 import * as Instances from '../Instances.js'
 import WebGL_Scene from '../WebGL_Scene.js'
@@ -46,11 +47,15 @@ export default function Render() {
         radius: .5,
     })
 
+    // Images
+    const ImageLoader = new THREE.TextureLoader()
+
     // The main big planet
-    Instances._3D_Sphere(Scene, [15*2, 32*2, 16*2])
+    const MainPlanet = Instances._3D_Sphere(Scene, [15*2, 32*2, 16*2])
+    MainPlanet.Material.map = ImageLoader.load('https://r105.threejsfundamentals.org/threejs/resources/images/wall.jpg')
 
     // The sun
-    const Sun = Instances._3D_Sphere(Scene, [15*2, 32*2, 16*2], 0xffff00)
+    const Sun = Instances._3D_Sphere(Scene, [15*2, 32*2, 16*2], 0xffe49c)
     Sun.Mesh.position.set(500,300,-500)
     
     const Moon = Instances._3D_Sphere(Scene, [15/2, 32, 16])
@@ -76,11 +81,11 @@ export default function Render() {
     
     for (let i = 0; i < 500; i++) {
         const Particle = Instances._3D_Sphere(Scene, [15/50, 32, 16]).Mesh
-        Particles[Particles.length] = {
+        Particles.push({
             Object: Particle,
             y_rand: Particle.position.y-cMath.RandRange(-10,0),
             z_rand: Particle.position.z-cMath.RandRange(-20,0)
-        }
+        })
     }
     
     Renderer.setAnimationLoop((deltaTime) => {

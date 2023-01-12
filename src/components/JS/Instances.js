@@ -15,9 +15,8 @@ export function _3D_Sphere(Scene, SphereGeometry, Material_Color, Emissive) {
 
     let Material
     if (Material_Color != undefined || Emissive != undefined) {
-        Material = new THREE.MeshStandardMaterial({
-            color:    fLibrary.s_Circuit(Material_Color, 0xff0000),
-            emissive: fLibrary.s_Circuit(Emissive, 0xcccccc)
+        Material = new THREE.MeshBasicMaterial({
+            color: fLibrary.s_Circuit(Material_Color, 0xff0000)
         })
     } else {
         Material = new THREE.MeshNormalMaterial()
