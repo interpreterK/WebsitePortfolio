@@ -15,10 +15,10 @@ function Intro(Camera, Orbit, FadeWindow) {
     for (let i = 0; i <= 100; i++) {
         Intervals.push(setInterval(() => {
             const Tween = cMath.easeOutQuad(i/2000)
-            Camera.position.z = cMath.lerp(Camera.position.z, 80,  Tween)
-            Camera.position.x = cMath.lerp(Camera.position.x, -80, Tween)
+            Camera.position.z = cMath.lerp(Camera.position.z, -500,  Tween)
+            Camera.position.x = cMath.lerp(Camera.position.x, 100, Tween)
 
-            Camera.rotation.y = cMath.lerp(Camera.rotation.y, -pi/3, Tween)
+            Camera.rotation.y = cMath.lerp(Camera.rotation.y, pi/3, Tween)
 
             if (floor(Camera.position.z) <= 80) {
                 Intervals.forEach((_, index) => {
@@ -47,16 +47,16 @@ export default function Render() {
 
     // Shaders
     // const Bloom = Instances.Bloom(Renderer, Scene, Camera, {
-    //     strength: .8,
+    //     strength: .5,
     //     radius: .5,
     // })
-
+    
     // The main big planet
     Instances._3D_Sphere(Scene, [15*2, 32*2, 16*2])
 
     // The sun
     const Sun = Instances._3D_Sphere(Scene, [15*2, 32*2, 16*2], 0xffe49c)
-    Sun.Mesh.position.set(500,300,-500)
+    Sun.Mesh.position.set(500,400,-500)
     
     const Moon = Instances._3D_Sphere(Scene, [15/2, 32, 16])
     const Moon2 = Instances._3D_Sphere(Scene, [15/5, 32, 16])
@@ -84,7 +84,7 @@ export default function Render() {
         Particles.push({
             Object: Particle,
             y_rand: Particle.position.y-cMath.RandRange(-10,0),
-            z_rand: Particle.position.z-cMath.RandRange(-20,0)
+            z_rand: Particle.position.z-cMath.RandRange(-30,0)
         })
     }
     
