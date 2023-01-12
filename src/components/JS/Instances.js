@@ -10,11 +10,11 @@ let BLOOM_Default = {
     radius:    0
 }
 
-export function _3D_Sphere(Scene, SphereGeometry, Material_Color, Emissive) {
+export function _3D_Sphere(Scene, SphereGeometry, Material_Color) {
     const Geometry = new THREE.SphereGeometry(...SphereGeometry)
 
     let Material
-    if (Material_Color != undefined || Emissive != undefined) {
+    if (Material_Color != undefined) {
         Material = new THREE.MeshBasicMaterial({
             color: fLibrary.s_Circuit(Material_Color, 0xff0000)
         })

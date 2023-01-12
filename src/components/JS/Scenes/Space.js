@@ -2,7 +2,6 @@
 	@Author: interpreterK (https://github.com/interpreterK)
 */
 
-import * as THREE from 'three'
 import * as cMath from '../cMath.js'
 import * as Instances from '../Instances.js'
 import WebGL_Scene from '../WebGL_Scene.js'
@@ -14,17 +13,22 @@ function Intro(Camera, Orbit, FadeWindow) {
     const Intervals = []
 
     for (let i = 0; i <= 100; i++) {
-        Intervals[Intervals.length] = setInterval(() => {
-            Camera.position.z = cMath.lerp(Camera.position.z, 100, cMath.easeOutQuad(i/2000))
+        Intervals.push(setInterval(() => {
+            const Tween = cMath.easeOutQuad(i/2000)
+            Camera.position.z = cMath.lerp(Camera.position.z, 80,  Tween)
+            Camera.position.x = cMath.lerp(Camera.position.x, -80, Tween)
 
-            if (floor(Camera.position.z) <= 100) {
+            Camera.rotation.y = cMath.lerp(Camera.rotation.y, -pi/3, Tween)
+
+            if (floor(Camera.position.z) <= 80) {
                 Intervals.forEach((_, index) => {
                     clearInterval(Intervals[index])
                 })
                 Orbit.enabled = true
             }
-        }, 20*i)
+        }, 20*i))
     }
+    
     //cMath.FadeIn(FadeWindow)
     CloseWindow.onclick = function() {
         cMath.FadeOut(FadeWindow)
@@ -42,17 +46,13 @@ export default function Render() {
     const Scene    = WebGL.Scene
 
     // Shaders
-    const Bloom = Instances.Bloom(Renderer, Scene, Camera, {
-        strength: 1,
-        radius: .5,
-    })
-
-    // Images
-    const ImageLoader = new THREE.TextureLoader()
+    // const Bloom = Instances.Bloom(Renderer, Scene, Camera, {
+    //     strength: .8,
+    //     radius: .5,
+    // })
 
     // The main big planet
-    const MainPlanet = Instances._3D_Sphere(Scene, [15*2, 32*2, 16*2])
-    MainPlanet.Material.map = ImageLoader.load('https://r105.threejsfundamentals.org/threejs/resources/images/wall.jpg')
+    Instances._3D_Sphere(Scene, [15*2, 32*2, 16*2])
 
     // The sun
     const Sun = Instances._3D_Sphere(Scene, [15*2, 32*2, 16*2], 0xffe49c)
@@ -75,7 +75,7 @@ export default function Render() {
         Star.position.y=cMath.RandRange(-1000,1000)
         Star.position.z=cMath.RandRange(-1000,1000)
         Star.rotation.x=cMath.RandRange(-360,360)
-        Star.rotation.y=cMath.RandRange(-360,360)   
+        Star.rotation.y=cMath.RandRange(-360,360) 
         Star.rotation.z=cMath.RandRange(-360,360)
     }
     
@@ -106,14 +106,14 @@ export default function Render() {
         })
 
         Renderer.render(Scene, Camera)
-        Bloom.Composer.render()
+        // Bloom.Composer.render()
     })
 
     window.addEventListener("resize", () => {
         Camera.aspect = window.innerWidth/window.innerHeight
         Camera.updateProjectionMatrix()
         Renderer.setSize(window.innerWidth, window.innerHeight)
-        Bloom.Composer.setSize(window.innerWidth, window.innerHeight)
+        // Bloom.Composer.setSize(window.innerWidth, window.innerHeight)
     }, false)
 
     Intro(Camera, Orbit, TopWindow)
