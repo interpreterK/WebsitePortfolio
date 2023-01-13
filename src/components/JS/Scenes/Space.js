@@ -12,20 +12,22 @@ function Intro(Camera, Orbit, FadeWindow) {
 
     for (let i = 0; i <= 100; i++) {
         Intervals.push(setInterval(() => {
-            //const Tween = cMath.easeOutQuad(i/13)
-            Camera.position.z = cMath.lerp(0, -74, i)
-            Camera.position.x = cMath.lerp(0, -68, i)
-            Camera.position.y = cMath.lerp(0, -46, i)
+            const Tween = cMath.easeOutQuad(i/10)
+            Camera.position.x = cMath.lerp(Camera.position.x, -61, Tween)
+            Camera.position.y = cMath.lerp(Camera.position.y, -38, Tween)
+            Camera.position.z = cMath.lerp(Camera.position.z, -82, Tween)
+            
+            Camera.rotation.x = cMath.lerp(Camera.rotation.x, 2.7, Tween)
+            Camera.rotation.y = cMath.lerp(Camera.rotation.y, -0.5, Tween)
+            Camera.rotation.z = cMath.lerp(Camera.rotation.z, 2.9, Tween)
 
-            Camera.rotation.y = cMath.lerp(0, 2*Math.PI/4, i)
-
-            if (Math.floor(Camera.position.z) <= 80) {
+            if (Math.floor(Camera.position.z) <= -100) {
                 Intervals.forEach((_, index) => {
                     clearInterval(Intervals[index])
                 })
                 Orbit.enabled = true
             }
-        }, 20*i))
+        }, i*1000))
     }
     
     //cMath.FadeIn(FadeWindow)
@@ -60,15 +62,15 @@ export default function Render() {
 
     // Stars and Particles
     const Particles = []
-    
-    for (let i = 0; i < 1000; i++) {
+        
+    for (let i = 0; i < 1e3; i++) {
         const Size = cMath.RandRange(.1,2)
         const Star = Instances._3D_Box(Scene, [Size,Size,Size], 0xffffff).Mesh
         // Randomly set a position and rotation
         // Space atmosphere
-        Star.position.x=cMath.RandRange(-1000,1000)
-        Star.position.y=cMath.RandRange(-1000,1000)
-        Star.position.z=cMath.RandRange(-1000,1000)
+        Star.position.x=cMath.RandRange(-1e3,1e3)
+        Star.position.y=cMath.RandRange(-1e3,1e3)
+        Star.position.z=cMath.RandRange(-1e3,1e3)
         Star.rotation.x=cMath.RandRange(-360,360)
         Star.rotation.y=cMath.RandRange(-360,360) 
         Star.rotation.z=cMath.RandRange(-360,360)
@@ -85,7 +87,7 @@ export default function Render() {
     
     Renderer.setAnimationLoop((deltaTime) => {
         const Angle1 = (deltaTime/(1e4*2)*Math.PI)%(2*Math.PI)
-        const Angle2 = (deltaTime/4000*Math.PI)%(2*Math.PI)
+        const Angle2 = (deltaTime/4e3*Math.PI)%(2*Math.PI)
         Moon_Object.position.x=Math.sin(Angle1)*40
         Moon_Object.position.y=Math.sin(Angle1)*35
         Moon_Object.position.z=Math.cos(Angle1)*40
@@ -102,7 +104,7 @@ export default function Render() {
 
         Renderer.render(Scene, Camera)
         // Bloom.Composer.render()
-        console.log(Camera.position)
+        console.log("position:",Camera.position,"rotation:",Camera.rotation)
     })
 
     window.addEventListener("resize", () => {

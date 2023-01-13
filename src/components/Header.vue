@@ -1,14 +1,16 @@
 <template>
     <header>
         <div class="Top-Bar">
-            <h1>rhpidfyre</h1>
+            <a href="#">
+                <h1>rhpidfyre</h1>
+            </a>
             <nav>
                 <ul class="Nav-Links">
-                    <a href="#">
-                        <li>About Me</li>
+                    <a href="https://github.com/interpreterK" target="_blank">
+                        <li>My GitHub</li>
                     </a>
                     <a href="#">
-                        <li>Contact Me</li>
+                        <li>My Contacts</li>
                     </a>
                 </ul>
             </nav>
