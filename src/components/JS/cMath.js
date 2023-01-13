@@ -2,11 +2,14 @@ export function RandRange(min, max) {
     return Math.random()*(max-min)+min
 }
 
-/*
-    Easings
-    https://easings.net/
-*/
+export function E_clamp(min, x, max) {
+    return Math.max(min, Math.min(x, max))
+}
+
+// Easings
+// https://easings.net/
 export function lerp(start, end, t) {
+    t=E_clamp(.0,t,1)
     return start*(1-t)+end*t
 }
 
