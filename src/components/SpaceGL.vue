@@ -1,10 +1,8 @@
 <template>
-	<div id="WebGL_Renderer">
-        <div id="Top-Window">
-            <div class="Top-Bar-Window">
-                <button id="Close-Prompt">X</button>
-                <h1>Hello!</h1>
-            </div>
+	<div id="WebGL_Renderer"></div>
+    <div id="Top-Window">
+        <div class="Top-Bar-Window">
+            <button id="Close-Prompt">X</button>
         </div>
     </div>
 </template>

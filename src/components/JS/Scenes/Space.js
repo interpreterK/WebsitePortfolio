@@ -27,7 +27,7 @@ function Intro(Camera, Orbit, FadeWindow) {
                 })
                 Orbit.enabled = true
             }
-        }, i*1000))
+        }, i*50))
     }
     
     //cMath.FadeIn(FadeWindow)

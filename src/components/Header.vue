@@ -1,9 +1,7 @@
 <template>
     <header>
         <div class="Top-Bar">
-            <a href="#">
-                <h1>rhpidfyre</h1>
-            </a>
+            <h1>rhpidfyre</h1>
             <nav>
                 <ul class="Nav-Links">
                     <a href="https://github.com/interpreterK" target="_blank">
