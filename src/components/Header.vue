@@ -7,9 +7,6 @@
                     <a href="https://github.com/interpreterK" target="_blank">
                         <li>My GitHub</li>
                     </a>
-                    <a href="#">
-                        <li>My Contacts</li>
-                    </a>
                 </ul>
             </nav>
         </div>

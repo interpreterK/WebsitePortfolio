@@ -104,7 +104,6 @@ export default function Render() {
 
         Renderer.render(Scene, Camera)
         // Bloom.Composer.render()
-        console.log("position:",Camera.position,"rotation:",Camera.rotation)
     })
 
     window.addEventListener("resize", () => {

@@ -1,13 +1,11 @@
 <template>
     <TopBar/>
     <SpaceGL/>
-    <MiddleGL/>
 </template>
 
 <script> 
 import TopBar from './components/Header.vue'
 import SpaceGL from './components/SpaceGL.vue'
-import MiddleGL from './components/MiddleGL.vue'
 
 // ThreeJS Home Page (Space)
 import Render from './components/JS/Scenes/Space.js'
@@ -17,8 +15,7 @@ export default {
     name: 'App',
     components: {
         TopBar,
-        SpaceGL,
-        MiddleGL
+        SpaceGL
     }
 }
 </script>
